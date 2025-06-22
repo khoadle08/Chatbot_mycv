@@ -1,7 +1,7 @@
 # main_app.py
 import streamlit as st
 import uuid
-from langchain_core.messages import HumanMessage, ToolMessage
+from langchain_core.messages import HumanMessage, AIMessage, ToolMessage
 import time
 from datetime import datetime
 
@@ -10,13 +10,13 @@ from graph_builder import create_recruitment_graph
 
 # --- PHẦN 0: CẤU HÌNH GIỚI HẠN YÊU CẦU (RATE LIMITING) ---
 REQUESTS_PER_MINUTE = 15
-REQUESTS_PER_DAY = 50 # <-- CẬP NHẬT: Giới hạn mỗi ngày là 50 câu hỏi
+REQUESTS_PER_DAY = 50 
 # Lưu ý: Giới hạn 1,000,000 token/phút là của API Gemini và được quản lý ở phía Google,
 # không được thực thi trực tiếp trong mã nguồn của ứng dụng này.
 
 # --- PHẦN 1: KHỞI TẠO ỨNG DỤNG VÀ GRAPH ---
 
-st.set_page_config(page_title="Khoa Dang Le's AI Assistant", page_icon="🤖")
+st.set_page_config(page_title="Khoa Dang Le's AI Assistant", page_icon="�")
 
 st.title("🤖 Khoa Dang Le's AI Recruiter Assistant")
 st.markdown("""
@@ -50,7 +50,11 @@ if "last_request_date" not in st.session_state:
 for message in st.session_state.messages:
     # Không hiển thị các tin nhắn của ToolMessage cho người dùng
     if not isinstance(message, ToolMessage):
-        with st.chat_message(message.role):
+        # SỬA LỖI: Đối tượng message của LangChain có thuộc tính 'type' thay vì 'role' cho các phiên bản mới hơn, 
+        # nhưng thuộc tính 'role' vẫn tồn tại cho mục đích tương thích.
+        # Streamlit cần 'user' hoặc 'assistant'.
+        role = "assistant" if isinstance(message, AIMessage) else "user"
+        with st.chat_message(role):
             st.markdown(message.content)
 
 # --- PHẦN 3: HÀM KIỂM TRA GIỚI HẠN YÊU CẦU ---
@@ -92,8 +96,8 @@ if prompt := st.chat_input("Ask me about Khoa's profile..."):
         st.session_state.request_timestamps.append(time.time())
         st.session_state.daily_request_count += 1
 
-        # Thêm tin nhắn của người dùng vào state và hiển thị
-        st.session_state.messages.append(HumanMessage(content=prompt, role="user"))
+        # SỬA LỖI: Tạo HumanMessage không cần tham số `role`
+        st.session_state.messages.append(HumanMessage(content=prompt))
         with st.chat_message("user"):
             st.markdown(prompt)
 
@@ -130,5 +134,5 @@ if prompt := st.chat_input("Ask me about Khoa's profile..."):
             except Exception as e:
                 error_message = f"Sorry, I encountered an error. Please ensure your API keys are correctly configured in Streamlit secrets. Error: {e}"
                 st.error(error_message)
-                # Thêm tin nhắn lỗi vào lịch sử
-                st.session_state.messages.append(HumanMessage(content=error_message, role="assistant"))
+                # SỬA LỖI: Sử dụng AIMessage cho tin nhắn lỗi của trợ lý
+                st.session_state.messages.append(AIMessage(content=error_message))
