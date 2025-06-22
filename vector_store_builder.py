@@ -28,7 +28,7 @@ def load_and_chunk_cv(file_path: str = "mycv.json") -> list[Document]:
         
     # Kinh nghiệm
     if "experience" in data:
-        exp_text = "\n\n".join([f"Title: {exp['title']} at {exp['company']}\nDates: {exp['dates']}\nResponsibilities:\n- " + "\n- ".join(exp['responsibilities']) for exp in data['experience']])
+        exp_text = "\n\n".join([f"Title: {exp.get('title', 'N/A')} at {exp.get('company', 'N/A')}\nDates: {exp.get('dates', 'N/A')}\nResponsibilities:\n- " + "\n- ".join(exp.get('responsibilities', [])) for exp in data['experience']])
         docs.append(Document(page_content=exp_text, metadata={"source": "experience"}))
         
     # Kỹ năng
@@ -38,14 +38,24 @@ def load_and_chunk_cv(file_path: str = "mycv.json") -> list[Document]:
 
     # Dự án tóm tắt
     if "projects" in data:
-        proj_summary_text = "\n\n".join([f"Company: {p['company']}\n" + "\n".join([f"- {item['title']}: {item.get('key_achievements', '')}" for item in p['project_list']]) for p in data['projects']])
+        proj_summary_text = "\n\n".join([f"Company: {p.get('company', 'N/A')}\n" + "\n".join([f"- {item.get('title', 'N/A')}: {item.get('key_achievements', '')}" for item in p.get('project_list', [])]) for p in data['projects']])
         docs.append(Document(page_content=f"Projects Summary:\n{proj_summary_text}", metadata={"source": "projects_summary"}))
         
     # Dự án chi tiết
     if "detail_project" in data:
         for project in data["detail_project"]:
-            proj_detail_text = f"Project Name: {project['project_name']}\nCompany: {project['company']}\nStatus: {project['status']}\nGoal: {project['project_goal']}\nProblem: {project['problem_to_solve']}\nRole: {project['role_and_responsibilities']}\nAchievements: {', '.join(project.get('achievements', []))}"
-            docs.append(Document(page_content=proj_detail_text, metadata={"source": f"detail_project_{project['project_name']}"}))
+            # SỬA LỖI: Sử dụng .get() cho tất cả các trường để tránh lỗi KeyError
+            # khi một trường nào đó không tồn tại trong một dự án cụ thể.
+            proj_detail_text = (
+                f"Project Name: {project.get('project_name', 'N/A')}\n"
+                f"Company: {project.get('company', 'N/A')}\n"
+                f"Status: {project.get('status', 'N/A')}\n"
+                f"Goal: {project.get('project_goal', 'N/A')}\n"
+                f"Problem: {project.get('problem_to_solve', 'N/A')}\n"
+                f"Role: {project.get('role_and_responsibilities', 'N/A')}\n"
+                f"Achievements: {', '.join(project.get('achievements', []))}"
+            )
+            docs.append(Document(page_content=proj_detail_text, metadata={"source": f"detail_project_{project.get('project_name', 'unknown')}"}))
 
     # Chia nhỏ các document thành các chunk
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
