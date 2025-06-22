@@ -1,7 +1,6 @@
 # tools.py
 
 import firebase_admin
-from firebase_admin import firestore
 from langchain.tools import tool
 import json
 
