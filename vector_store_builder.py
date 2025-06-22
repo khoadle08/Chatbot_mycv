@@ -26,7 +26,7 @@ def load_and_chunk_cv(file_path: str = "mycv.json") -> list[Document]:
     if "introduction" in data:
         docs.append(Document(page_content=data["introduction"], metadata={"source": "introduction"}))
         
-    # Kinh nghiệm (CẬP NHẬT: Tách từng công ty thành một document riêng)
+    # Kinh nghiệm (Tách từng công ty thành một document riêng)
     if "experience" in data:
         for exp in data['experience']:
             exp_text = (
@@ -47,13 +47,11 @@ def load_and_chunk_cv(file_path: str = "mycv.json") -> list[Document]:
         proj_summary_text = "\n\n".join([f"Company: {p.get('company', 'N/A')}\n" + "\n".join([f"- {item.get('title', 'N/A')}: {item.get('key_achievements', '')}" for item in p.get('project_list', [])]) for p in data['projects']])
         docs.append(Document(page_content=f"Projects Summary:\n{proj_summary_text}", metadata={"source": "projects_summary"}))
         
-    # Dự án chi tiết (CẬP NHẬT: Định dạng lại cho rõ ràng hơn)
+    # Dự án chi tiết
     if "detail_project" in data:
         for project in data["detail_project"]:
-            # Định dạng các phần có thể là danh sách hoặc đối tượng lồng nhau
             achievements_list = project.get('achievements', [])
             achievements_text = "\n- ".join(achievements_list) if achievements_list else "Not specified."
-            
             methodology = project.get('methodology_and_solution', 'Not specified.')
             methodology_text = ""
             if isinstance(methodology, dict):
@@ -64,7 +62,6 @@ def load_and_chunk_cv(file_path: str = "mycv.json") -> list[Document]:
             elif isinstance(methodology, str):
                 methodology_text = methodology
             
-            # Tạo một khối văn bản có cấu trúc, dễ đọc cho mỗi dự án
             proj_detail_text = (
                 f"--- DETAILED PROJECT REPORT ---\n\n"
                 f"**Project Name:** {project.get('project_name', 'N/A')}\n"
@@ -110,5 +107,7 @@ def get_retriever(google_api_key):
         
     vector_store = create_vector_store(docs, google_api_key)
     if vector_store:
-        return vector_store.as_retriever(search_kwargs={"k": 3}) # Lấy 3 kết quả liên quan nhất
+        # SỬA LỖI: Tăng số lượng kết quả truy xuất từ 3 lên 5 để đảm bảo
+        # tất cả các kinh nghiệm làm việc đều được lấy ra.
+        return vector_store.as_retriever(search_kwargs={"k": 5}) 
     return None
