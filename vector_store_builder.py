@@ -30,18 +30,21 @@ def load_and_chunk_cv(file_path: str = "mycv.json") -> list[Document]:
     # Kinh nghiệm (Tách từng công ty thành một document riêng)
     if "experience" in data:
         for exp in data['experience']:
-            # CẬP NHẬT: Xử lý ngày tháng để thay thế "Present" bằng ngày hiện tại
+            # Xử lý ngày tháng để thay thế "Present" bằng ngày hiện tại
             dates_str = exp.get('dates', 'N/A')
             if 'Present' in dates_str:
                 current_date = datetime.now().strftime('%B %Y') # Format: e.g., June 2025
                 dates_str = dates_str.replace('Present', current_date)
 
+            company_name = exp.get('company', 'N/A')
+            # CẬP NHẬT: Thêm tiêu đề rõ ràng vào nội dung văn bản để tăng cường khả năng truy xuất
             exp_text = (
-                f"Title: {exp.get('title', 'N/A')} at {exp.get('company', 'N/A')}\n"
+                f"My work experience at {company_name}:\n"
+                f"Title: {exp.get('title', 'N/A')}\n"
                 f"Dates: {dates_str}\n"
                 "Responsibilities:\n- " + "\n- ".join(exp.get('responsibilities', []))
             )
-            company_name = exp.get('company', 'unknown_company')
+            # Giữ metadata để có thể lọc nếu cần
             docs.append(Document(page_content=exp_text, metadata={"source": f"experience_{company_name}"}))
         
     # Kỹ năng
