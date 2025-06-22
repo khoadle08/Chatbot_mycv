@@ -4,3 +4,5 @@ langchain-google-genai
 langgraph
 langchain-community
 langchain-core
+langchain-text-splitters
+faiss-cpu
