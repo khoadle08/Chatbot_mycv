@@ -12,7 +12,7 @@
         "title": "Senior Data Scientist",
         "company": "SABA Sports",
         "location": "Ho Chi Minh city, VN",
-        "dates": "May 2024-Present",
+        "dates": "May 2024-Jun 2025",
         "responsibilities": [
           "Architected robust data storage and management infrastructure designed to reliably handle millions of concurrent users during peak activity periods (e.g., live tournaments)",
           "Developed and deployed real-time Machine Learning (ML) and Deep Learning (DL) systems to predict and mitigate malicious user activity or potential fraud during live events, incorporating an optimized Landing Zone design to ensure high-speed data processing and storage performance under load from millions of users",
