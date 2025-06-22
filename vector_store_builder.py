@@ -26,10 +26,16 @@ def load_and_chunk_cv(file_path: str = "mycv.json") -> list[Document]:
     if "introduction" in data:
         docs.append(Document(page_content=data["introduction"], metadata={"source": "introduction"}))
         
-    # Kinh nghiệm
+    # Kinh nghiệm (CẬP NHẬT: Tách từng công ty thành một document riêng)
     if "experience" in data:
-        exp_text = "\n\n".join([f"Title: {exp.get('title', 'N/A')} at {exp.get('company', 'N/A')}\nDates: {exp.get('dates', 'N/A')}\nResponsibilities:\n- " + "\n- ".join(exp.get('responsibilities', [])) for exp in data['experience']])
-        docs.append(Document(page_content=exp_text, metadata={"source": "experience"}))
+        for exp in data['experience']:
+            exp_text = (
+                f"Title: {exp.get('title', 'N/A')} at {exp.get('company', 'N/A')}\n"
+                f"Dates: {exp.get('dates', 'N/A')}\n"
+                "Responsibilities:\n- " + "\n- ".join(exp.get('responsibilities', []))
+            )
+            company_name = exp.get('company', 'unknown_company')
+            docs.append(Document(page_content=exp_text, metadata={"source": f"experience_{company_name}"}))
         
     # Kỹ năng
     if "technical_skills" in data:
