@@ -14,19 +14,30 @@ from tools import all_tools
 # --- PHẦN 1: CẤU HÌNH LLM VÀ TRẠNG THÁI ---
 
 # Cố gắng lấy API key từ secrets của Streamlit
-try:
-    GOOGLE_API_KEY = st.secrets["GOOGLE_API_KEY"]
-    # Bật LangSmith tracing nếu có key
-    os.environ["LANGCHAIN_TRACING_V2"] = "true"
-    os.environ["LANGCHAIN_API_KEY"] = st.secrets["LANGCHAIN_API_KEY"]
-except (FileNotFoundError, KeyError):
-    st.warning("API keys not found in Streamlit secrets. The app may not function correctly.")
-    GOOGLE_API_KEY = ""
-    os.environ["LANGCHAIN_TRACING_V2"] = "false"
+# try:
+#     GOOGLE_API_KEY = st.secrets["GOOGLE_API_KEY"]
+#     # Bật LangSmith tracing nếu có key
+#     os.environ["LANGCHAIN_TRACING_V2"] = "true"
+#     os.environ["LANGCHAIN_API_KEY"] = st.secrets["LANGCHAIN_API_KEY"]
+# except (FileNotFoundError, KeyError):
+#     st.warning("API keys not found in Streamlit secrets. The app may not function correctly.")
+#     GOOGLE_API_KEY = ""
+#     os.environ["LANGCHAIN_TRACING_V2"] = "false"
 
+
+# Lấy Google API Key từ Streamlit Secrets hoặc biến môi trường
+try:
+    google_api_key = st.secrets["GOOGLE_API_KEY"]
+except (KeyError, FileNotFoundError):
+    google_api_key = os.environ.get("GOOGLE_API_KEY")
+
+if not google_api_key:
+    st.error("Vui lòng thiết lập GOOGLE_API_KEY trong Streamlit Secrets hoặc biến môi trường!")
+    st.stop()
+    
 # Khởi tạo mô hình LLM và gắn các công cụ vào nó
 # Bằng cách này, LLM sẽ biết khi nào cần sử dụng công cụ nào
-llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.2, google_api_key=GOOGLE_API_KEY)
+llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.2, google_api_key=google_api_key)
 llm_with_tools = llm.bind_tools(all_tools)
 
 # Định nghĩa trạng thái của Graph
