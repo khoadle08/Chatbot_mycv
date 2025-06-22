@@ -47,24 +47,41 @@ def load_and_chunk_cv(file_path: str = "mycv.json") -> list[Document]:
         proj_summary_text = "\n\n".join([f"Company: {p.get('company', 'N/A')}\n" + "\n".join([f"- {item.get('title', 'N/A')}: {item.get('key_achievements', '')}" for item in p.get('project_list', [])]) for p in data['projects']])
         docs.append(Document(page_content=f"Projects Summary:\n{proj_summary_text}", metadata={"source": "projects_summary"}))
         
-    # Dự án chi tiết
+    # Dự án chi tiết (CẬP NHẬT: Định dạng lại cho rõ ràng hơn)
     if "detail_project" in data:
         for project in data["detail_project"]:
-            # SỬA LỖI: Sử dụng .get() cho tất cả các trường để tránh lỗi KeyError
-            # khi một trường nào đó không tồn tại trong một dự án cụ thể.
+            # Định dạng các phần có thể là danh sách hoặc đối tượng lồng nhau
+            achievements_list = project.get('achievements', [])
+            achievements_text = "\n- ".join(achievements_list) if achievements_list else "Not specified."
+            
+            methodology = project.get('methodology_and_solution', 'Not specified.')
+            methodology_text = ""
+            if isinstance(methodology, dict):
+                if 'layers' in methodology:
+                     methodology_text = "\n".join([f"  - {layer}" for layer in methodology.get('layers', [])])
+                elif 'phase_1' in methodology:
+                     methodology_text = f"  - Phase 1: {methodology.get('phase_1', 'N/A')}\n  - Phase 2: {methodology.get('phase_2', 'N/A')}"
+            elif isinstance(methodology, str):
+                methodology_text = methodology
+            
+            # Tạo một khối văn bản có cấu trúc, dễ đọc cho mỗi dự án
             proj_detail_text = (
-                f"Project Name: {project.get('project_name', 'N/A')}\n"
-                f"Company: {project.get('company', 'N/A')}\n"
-                f"Status: {project.get('status', 'N/A')}\n"
-                f"Goal: {project.get('project_goal', 'N/A')}\n"
-                f"Problem: {project.get('problem_to_solve', 'N/A')}\n"
-                f"Role: {project.get('role_and_responsibilities', 'N/A')}\n"
-                f"Achievements: {', '.join(project.get('achievements', []))}"
+                f"--- DETAILED PROJECT REPORT ---\n\n"
+                f"**Project Name:** {project.get('project_name', 'N/A')}\n"
+                f"**Company:** {project.get('company', 'N/A')}\n"
+                f"**Project Status:** {project.get('status', 'N/A')}\n\n"
+                f"**1. Project Goal:**\n{project.get('project_goal', 'N/A')}\n\n"
+                f"**2. The Problem It Solved:**\n{project.get('problem_to_solve', 'N/A')}\n\n"
+                f"**3. My Role and Responsibilities:**\n{project.get('role_and_responsibilities', 'N/A')}\n\n"
+                f"**4. Technical Solution & Methodology:**\n{methodology_text}\n\n"
+                f"**5. Key Achievements:**\n- {achievements_text}\n\n"
+                f"**6. Technologies Used:**\n{project.get('technologies_used', 'N/A')}\n"
+                f"---------------------------------"
             )
             docs.append(Document(page_content=proj_detail_text, metadata={"source": f"detail_project_{project.get('project_name', 'unknown')}"}))
 
     # Chia nhỏ các document thành các chunk
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1500, chunk_overlap=200)
     chunked_docs = text_splitter.split_documents(docs)
     return chunked_docs
 
