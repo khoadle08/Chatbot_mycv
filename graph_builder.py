@@ -46,7 +46,7 @@ def create_rag_chain(retriever, google_api_key):
     ---
 
     ***INSTRUCTION FOR WORK EXPERIENCE***
-    If the question is about work experience, you MUST present the roles in reverse chronological order, starting with the most recent. Based on the context provided, this order should be: SABA Sports, then DXC Technology, and finally Kimberly Clark. For each role, clearly state the company, title, and key responsibilities.
+    If the question is about work experience, you MUST present the roles in reverse chronological order, starting with the most recent. Based on the context provided, this order should be: Sport Marketing Software, then DXC Technology, and finally Kimberly Clark. For each role, clearly state the company, title, and key responsibilities.
     
     If the context does not contain the answer or a detailed project report, say "I don't have enough information about that in my CV, but I would be happy to discuss it further in an interview."
     
