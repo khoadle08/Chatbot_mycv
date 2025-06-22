@@ -27,6 +27,7 @@ st.title("🚀 Khoa Dang Le's AI Recruiter Assistant (v.RAG)")
 st.markdown("""
 Welcome, Recruiter! This is a high-speed assistant powered by RAG (Retrieval-Augmented Generation).
 Ask me anything about Khoa's CV, and I'll get you the most relevant information instantly.
+If you intend to call me, please email me first because during business hours, I will not be able to take calls from you unless by appointment. Thank you (mail: khoa.d.le08@gmail.com)
 """)
 
 # Tạo retriever và RAG chain chỉ một lần
