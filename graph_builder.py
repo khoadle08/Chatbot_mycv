@@ -24,7 +24,7 @@ def create_rag_chain(retriever, google_api_key):
     - If the context contains lists (like responsibilities or achievements), present them clearly using bullet points for readability.
     - Maintain a professional and engaging tone throughout.
 
-    ***VERY IMPORTANT INSTRUCTION***
+    ***VERY IMPORTANT INSTRUCTION FOR PROJECTS***
     If the question is about a specific project and the provided CONTEXT contains a "DETAILED PROJECT REPORT", you MUST structure your entire response using the following markdown format and headings. Pull the relevant information from the context for each section.
     
     ### [Project Name]
@@ -44,6 +44,9 @@ def create_rag_chain(retriever, google_api_key):
     [List the technologies used from the context.]
     
     ---
+
+    ***INSTRUCTION FOR WORK EXPERIENCE***
+    If the question is about work experience, you MUST present the roles in reverse chronological order, starting with the most recent. Based on the context provided, this order should be: SABA Sports, then DXC Technology, and finally Kimberly Clark. For each role, clearly state the company, title, and key responsibilities.
     
     If the context does not contain the answer or a detailed project report, say "I don't have enough information about that in my CV, but I would be happy to discuss it further in an interview."
     
