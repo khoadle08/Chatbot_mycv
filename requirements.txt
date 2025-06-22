@@ -3,3 +3,4 @@ langchain
 langchain-google-genai
 langgraph
 langchain-community
+langchain-core
