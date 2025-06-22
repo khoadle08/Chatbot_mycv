@@ -32,14 +32,22 @@ def load_and_chunk_cv(file_path: str = "mycv.json") -> list[Document]:
         for exp in data['experience']:
             # Xử lý ngày tháng để thay thế "Present" bằng ngày hiện tại
             dates_str = exp.get('dates', 'N/A')
-            if 'Present' in dates_str:
+            is_present_job = 'Present' in dates_str
+            if is_present_job:
                 current_date = datetime.now().strftime('%B %Y') # Format: e.g., June 2025
                 dates_str = dates_str.replace('Present', current_date)
 
             company_name = exp.get('company', 'N/A')
-            # CẬP NHẬT: Thêm tiêu đề rõ ràng vào nội dung văn bản để tăng cường khả năng truy xuất
+            
+            # SỬA LỖI DỨT ĐIỂM: Thêm một tiêu đề rõ ràng và khác biệt cho công việc hiện tại
+            # để hệ thống RAG luôn có thể tìm thấy nó.
+            if is_present_job:
+                 header = f"**Current and Most Recent Work Experience at {company_name}**\n"
+            else:
+                 header = f"Previous work experience at {company_name}:\n"
+
             exp_text = (
-                f"My work experience at {company_name}:\n"
+                header +
                 f"Title: {exp.get('title', 'N/A')}\n"
                 f"Dates: {dates_str}\n"
                 "Responsibilities:\n- " + "\n- ".join(exp.get('responsibilities', []))
@@ -117,7 +125,5 @@ def get_retriever(google_api_key):
         
     vector_store = create_vector_store(docs, google_api_key)
     if vector_store:
-        # SỬA LỖI: Tăng mạnh số lượng kết quả truy xuất để đảm bảo
-        # không bỏ sót bất kỳ thông tin nào khi hỏi về kinh nghiệm chung.
         return vector_store.as_retriever(search_kwargs={"k": 10}) 
     return None
