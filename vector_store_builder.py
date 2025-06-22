@@ -20,40 +20,41 @@ def load_and_chunk_cv(file_path: str = "mycv.json") -> list[Document]:
         return []
 
     docs = []
-    # Ghép nối các phần của CV thành các chuỗi văn bản dài
-    # để embedding có nhiều ngữ cảnh hơn.
     
     # Giới thiệu
     if "introduction" in data:
         docs.append(Document(page_content=data["introduction"], metadata={"source": "introduction"}))
         
-    # Kinh nghiệm (Tách từng công ty thành một document riêng)
+    # Kinh nghiệm
     if "experience" in data:
+        # SỬA LỖI DỨT ĐIỂM: Tạo một tài liệu tóm tắt kinh nghiệm
+        experience_summary_lines = ["Here is a summary of my professional experience in reverse chronological order:"]
+        
+        # Đồng thời, tạo các tài liệu chi tiết cho từng công việc
         for exp in data['experience']:
-            # Xử lý ngày tháng để thay thế "Present" bằng ngày hiện tại
             dates_str = exp.get('dates', 'N/A')
             is_present_job = 'Present' in dates_str
             if is_present_job:
-                current_date = datetime.now().strftime('%B %Y') # Format: e.g., June 2025
+                current_date = datetime.now().strftime('%B %Y')
                 dates_str = dates_str.replace('Present', current_date)
 
             company_name = exp.get('company', 'N/A')
+            title = exp.get('title', 'N/A')
             
-            # SỬA LỖI DỨT ĐIỂM: Thêm một tiêu đề rõ ràng và khác biệt cho công việc hiện tại
-            # để hệ thống RAG luôn có thể tìm thấy nó.
-            if is_present_job:
-                 header = f"**Current and Most Recent Work Experience at {company_name}**\n"
-            else:
-                 header = f"Previous work experience at {company_name}:\n"
-
-            exp_text = (
-                header +
-                f"Title: {exp.get('title', 'N/A')}\n"
+            # Thêm vào danh sách tóm tắt
+            experience_summary_lines.append(f"- {title} at {company_name} ({dates_str})")
+            
+            # Tạo tài liệu chi tiết cho từng công việc
+            exp_detail_text = (
+                f"Detailed work experience at {company_name}:\n"
+                f"Title: {title}\n"
                 f"Dates: {dates_str}\n"
                 "Responsibilities:\n- " + "\n- ".join(exp.get('responsibilities', []))
             )
-            # Giữ metadata để có thể lọc nếu cần
-            docs.append(Document(page_content=exp_text, metadata={"source": f"experience_{company_name}"}))
+            docs.append(Document(page_content=exp_detail_text, metadata={"source": f"experience_{company_name}"}))
+
+        # Thêm tài liệu tóm tắt vào danh sách docs
+        docs.append(Document(page_content="\n".join(experience_summary_lines), metadata={"source": "experience_summary"}))
         
     # Kỹ năng
     if "technical_skills" in data:
