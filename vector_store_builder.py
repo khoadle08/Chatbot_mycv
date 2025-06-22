@@ -114,7 +114,7 @@ def get_retriever(google_api_key):
         
     vector_store = create_vector_store(docs, google_api_key)
     if vector_store:
-        # SỬA LỖI: Tăng số lượng kết quả truy xuất từ 3 lên 5 để đảm bảo
-        # tất cả các kinh nghiệm làm việc đều được lấy ra.
-        return vector_store.as_retriever(search_kwargs={"k": 5}) 
+        # SỬA LỖI: Tăng mạnh số lượng kết quả truy xuất để đảm bảo
+        # không bỏ sót bất kỳ thông tin nào khi hỏi về kinh nghiệm chung.
+        return vector_store.as_retriever(search_kwargs={"k": 10}) 
     return None
