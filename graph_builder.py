@@ -2,7 +2,8 @@
 import os
 import streamlit as st
 from typing import TypedDict, Annotated
-from langchain_core.messages import BaseMessage, AIMessage
+# SỬA LỖI: Import thêm SystemMessage để xử lý lời nhắc hệ thống một cách chính xác
+from langchain_core.messages import BaseMessage, AIMessage, SystemMessage
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langgraph.graph import StateGraph, END
 from langgraph.checkpoint.memory import MemorySaver
@@ -16,9 +17,9 @@ from tools import all_tools
 # Cố gắng lấy API key từ secrets của Streamlit
 try:
     GOOGLE_API_KEY = st.secrets["GOOGLE_API_KEY"]
-    # Bật LangSmith tracing nếu có key
-    os.environ["LANGCHAIN_TRACING_V2"] = "true"
-    os.environ["LANGCHAIN_API_KEY"] = st.secrets["LANGCHAIN_API_KEY"]
+    # # Bật LangSmith tracing nếu có key
+    # os.environ["LANGCHAIN_TRACING_V2"] = "true"
+    # os.environ["LANGCHAIN_API_KEY"] = st.secrets["LANGCHAIN_API_KEY"]
 except (FileNotFoundError, KeyError):
     st.warning("API keys not found in Streamlit secrets. The app may not function correctly.")
     GOOGLE_API_KEY = ""
@@ -52,19 +53,11 @@ def agent_node(state: AgentState):
     - Answer ONLY in English. Be friendly and professional.
     """
     
-    messages_for_llm = state["messages"]
-
-    # SỬA LỖI: Kiểm tra loại đối tượng trước khi truy cập thuộc tính 'role'.
-    # HumanMessage không có thuộc tính 'role', vì vậy chúng ta cần một cách kiểm tra an toàn hơn.
-    is_system_prompt_present = False
-    if messages_for_llm and isinstance(messages_for_llm[0], AIMessage):
-        # Chỉ những tin nhắn AIMessage mới có khả năng là system prompt
-        if hasattr(messages_for_llm[0], 'role') and messages_for_llm[0].role == 'system':
-            is_system_prompt_present = True
-
-    # Nếu system prompt chưa có, thêm nó vào đầu danh sách tin nhắn
-    if not is_system_prompt_present:
-        messages_for_llm = [AIMessage(content=system_prompt, role="system")] + messages_for_llm
+    # SỬA LỖI: Tạo một danh sách tin nhắn mới cho LLM.
+    # Bắt đầu với SystemMessage, sau đó nối với lịch sử chat hiện tại.
+    # Cách này đảm bảo lời nhắc hệ thống luôn được thêm vào một cách đúng đắn
+    # mà không làm thay đổi trạng thái (state) của cuộc hội thoại.
+    messages_for_llm = [SystemMessage(content=system_prompt)] + state["messages"]
 
     # Gọi LLM với danh sách tin nhắn đã được chuẩn bị
     response = llm_with_tools.invoke(messages_for_llm)
