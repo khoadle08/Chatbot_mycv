@@ -5,6 +5,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_core.documents import Document
+from datetime import datetime
 
 def load_and_chunk_cv(file_path: str = "mycv.json") -> list[Document]:
     """
@@ -29,9 +30,15 @@ def load_and_chunk_cv(file_path: str = "mycv.json") -> list[Document]:
     # Kinh nghiệm (Tách từng công ty thành một document riêng)
     if "experience" in data:
         for exp in data['experience']:
+            # CẬP NHẬT: Xử lý ngày tháng để thay thế "Present" bằng ngày hiện tại
+            dates_str = exp.get('dates', 'N/A')
+            if 'Present' in dates_str:
+                current_date = datetime.now().strftime('%B %Y') # Format: e.g., June 2025
+                dates_str = dates_str.replace('Present', current_date)
+
             exp_text = (
                 f"Title: {exp.get('title', 'N/A')} at {exp.get('company', 'N/A')}\n"
-                f"Dates: {exp.get('dates', 'N/A')}\n"
+                f"Dates: {dates_str}\n"
                 "Responsibilities:\n- " + "\n- ".join(exp.get('responsibilities', []))
             )
             company_name = exp.get('company', 'unknown_company')
