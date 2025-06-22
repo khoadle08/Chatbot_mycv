@@ -1,0 +1,258 @@
+{
+    "personal_info": {
+      "name": "Khoa Dang Le",
+      "location": "Ho Chi Minh city",
+      "email": "khoa.d.le08@gmail.com",
+      "phone": "055 989 44 96",
+      "linkedin": "https://www.linkedin.com/in/khoa-dang-le-620918173/"
+    },
+    "introduction": "Results-oriented Data Leader with nearly 7 years of experience driving value through data architecture, pipeline management, and AI/ML. Successfully led an Al project to model customer lifetime value. Adept at managing data pipelines ensuring high availability for hundreds of simultaneous users and architecting data storage solutions capable of scaling to millions. Proven ability to optimize data handling pre-ETL/ELT for significant storage improvements and deploy effective ML/DL models for enhanced customer targeting and business strategy",
+    "experience": [
+      {
+        "title": "Senior Data Scientist",
+        "company": "Sport Marketing Software (SABA Sports B2B)",
+        "location": "Ho Chi Minh city, VN",
+        "dates": "May 2024-Present",
+        "responsibilities": [
+          "Architected robust data storage and management infrastructure designed to reliably handle millions of concurrent users during peak activity periods (e.g., live tournaments)",
+          "Developed and deployed real-time Machine Learning (ML) and Deep Learning (DL) systems to predict and mitigate malicious user activity or potential fraud during live events, incorporating an optimized Landing Zone design to ensure high-speed data processing and storage performance under load from millions of users",
+          "Designed predictive models analyzing real-time player actions and statistics to identify anomalous patterns potentially indicative of match manipulation or integrity risks, achieving up to 78% accuracy in flagging suspicious events.",
+          "Engineered highly efficient real-time data storage pipelines designed capable of reliably ingesting and managing simultaneous data streams from up to 20 concurrent live matches (events) per second"
+        ]
+      },
+      {
+        "title": "Senior Machine Learning Operations",
+        "company": "DXC Technology Viet Nam",
+        "location": "Ho Chi Minh city, VN",
+        "dates": "Apr 2022 - May 2024",
+        "responsibilities": [
+          "Led a project leveraging Machine Learning (ML) and Deep Learning (DL) to quantify Customer Lifetime Value (CLV), successfully reducing the required analysis effort from weeks to mere hours while maintaining prediction accuracy above 80%",
+          "Designed scalable data processing and analysis pipelines capable of handling thousands of concurrent customer interactions and processing high-volume data streams reaching up to 1 million messages per second",
+          "Developed and implemented robust strategies for customer data storage, ensuring data integrity, security, and accessibility",
+          "Architected and implemented automated ML/DL workflows within a Machine Learning Operations (MLOps) framework to streamline model deployment, monitoring, and retraining",
+          "Designed scalable Data Warehouse and Data-Lake architectures to ensure efficient, reliable storage and retrieval of large volumes of diverse data",
+          "Pioneered the design and development of customer valuation and segmentation models utilizing advanced techniques including Large Language Models (LLMs) and Recommendation Systems."
+        ]
+      },
+      {
+        "title": "Business Intelligence Analyst",
+        "company": "Kimberly Clark Viet Nam",
+        "location": "Ho Chi Minh city, VN",
+        "dates": "Sep 2021-Apr 2022",
+        "responsibilities": [
+          "Orchestrated data migration pipelines from SAP to SQL, facilitating integration with diverse reporting platforms and ensuring data integrity",
+          "Produced comprehensive analytical reports across various frequencies (daily, monthly, quarterly, annual) and created specialized reports to meet specific business needs",
+          "Generated critical insights into e-commerce market dynamics and product performance by applying sophisticated Al models and data mining methodologies.",
+          "Enhanced predictive forecast accuracy and delivered valuable, data-driven recommendations to inform strategic organizational planning."
+        ]
+      },
+      {
+        "title": "Data Science lecture",
+        "company": "CFD Engineering",
+        "location": "Ho Chi Minh city, VN",
+        "dates": "June 2019-Aug 2021",
+        "responsibilities": [
+          "Delivered comprehensive training and instruction on programming languages (C/C++, Python), Machine Learning concepts, and various simulation tools",
+          "Taught diverse audiences, including university students and corporate employees from both national and international companies"
+        ]
+      }
+    ],
+    "education": [
+      {
+        "institution": "National University - University of Technology Ho Chi Minh City",
+        "degree": "Master of Science in Computer Science",
+        "gpa": "3.4/4.0",
+        "dates": "Jan 2024- Present",
+        "coursework": [
+          "Advanced Algorithms",
+          "Machine Learning",
+          "Deep Learning",
+          "Advanced Data Engineering",
+          "Computer Architecture",
+          "LLM"
+        ]
+      },
+      {
+        "institution": "National University - University of Science Ho Chi Minh City",
+        "degree": "BS in Marine Science",
+        "dates": "Oct 2014-Sept 2019",
+        "coursework": [
+          "Algorithms",
+          "Machine Learning",
+          "Deep Learning",
+          "Computational Fluid Dynamic",
+          "Statistic"
+        ]
+      }
+    ],
+    "projects": [
+      {
+        "company": "SABA Sports",
+        "project_list": [
+          {
+            "title": "LLM-Powered Match Context Analysis System (SABA InsightAI)",
+            "description": [
+              "Lead the development of a premium analytics system using LLMs and RAG architecture to auto-generate context-rich narratives and alerts from multi-source data in real-time.",
+              "Responsible for architecture design, model fine-tuning, and deployment. Currently in the testing phase."
+            ]
+          },
+          {
+            "title": "Real-time Fraud Detection System in Sports Betting",
+            "description": [
+              "Architected & Led the development of an ML/DL system to detect fraudulent activities, capable of processing data from 20 concurrent matches and millions of users."
+            ],
+            "key_achievements": "Achieved 78% accuracy with sub-second latency. Designed and deployed the entire Datalake (Spark) and Data Warehouse (PostgreSQL) platform from scratch."
+          },
+          {
+            "title": "Formation & Tactical Recommendation System",
+            "description": [
+              "Engineered an in-depth analytics system using XGBoost and Matrix Factorization to quantify team formation effectiveness and player synergy."
+            ],
+            "key_achievements": "Achieved over 75% accuracy. Successfully built a high-performance ETL pipeline to process OPTA data for 10 concurrent matches."
+          }
+        ]
+      },
+      {
+        "company": "DXC Technology",
+        "project_list": [
+          {
+            "title": "AI-Powered Automated Insurance Underwriting System",
+            "description": [
+              "Led the technical development and architecture design for an AI/LLM solution that revolutionized the insurance underwriting process."
+            ],
+            "key_achievements": "Reduced quoting time from 3 weeks to under 1 hour, eliminated over 99% of manual entry errors, and successfully deployed a complete MLOps pipeline."
+          },
+          {
+            "title": "Optimized Real-time Customer Information Storage System",
+            "description": [
+              "Designed & Implemented a Data Warehouse/Lakehouse platform capable of updating sensitive information for millions of customers with per-second throughput."
+            ],
+            "key_achievements": "Became the core platform for automated reporting and rapid detection of exceptional customer cases."
+          },
+          {
+            "title": "ETL System Modernization from On-Premise to Azure",
+            "description": [
+              "Spearheaded the migration of a client's entire ETL system from Informatica to Azure Data Factory."
+            ],
+            "key_achievements": "Completed 100% of the migration on schedule. Reverse-engineered legacy processes with no documentation and created a complete new set of technical documents."
+          }
+        ]
+      },
+      {
+        "company": "Kimberly-Clark",
+        "project_list": [
+          {
+            "title": "E-commerce Market Analysis and Forecasting",
+            "description": [
+              "Developed predictive models to analyze market data, identify products with breakthrough potential, and support business strategy."
+            ],
+            "key_outcomes": "Provided actionable competitive analysis and insights that directly supported product promotion decisions on e-commerce platforms."
+          }
+        ]
+      }
+    ],
+    "technical_skills": {
+      "languages_and_databases": "Python, SQL, C, PostgreSQL, SQL Server, Snowflake, BigQuery, MongoDB",
+      "data_engineering_and_big_data": "Apache Spark, Apache Airflow, Hive, ETL/ELT, Real-time Data Pipelines, Data Warehousing (Star/Snowflake Schema), Datalake & Lakehouse Architecture, Data Modeling",
+      "cloud_platforms": "Azure (Azure Data Factory, AzureML), AWS (S3)",
+      "machine_learning_and_mlops": {
+        "frameworks": "PyTorch, Tensorflow",
+        "models_algorithms": "LLMs (RAG, Fine-tuning), Recommendation Systems, XGBoost, LSTM, NLP",
+        "mlops": "Kubernetes, CI/CD, MLflow"
+      },
+      "bi_and_data_analytics": "BI Reporting Tools, E-commerce Analytics"
+    },
+    "detail_project": [
+      {
+        "project_name": "SABA InsightAI - Automated Match Context Analysis and Interpretation System using LLM",
+        "company": "SABA Sports",
+        "status": "Ongoing",
+        "project_goal": "To create a new premium analytical product for SABA Sports' B2B clients. This system will not only provide raw data but will use an LLM to synthesize, interpret, and generate narratives about the context of an ongoing match in real-time. The goal is to provide clients (bookmakers, sports media companies) with deep, easy-to-understand, and immediately actionable insights, helping them make more effective risk management and end-user engagement decisions.",
+        "problem_to_solve": "SABA's clients receive a huge amount of data (odds, match statistics, user behavior). However, they have to expend human resources (analysts) to connect these data points, understand the 'story' behind the numbers, and react in a timely manner. This process is slow and can miss important signals.",
+        "role_and_responsibilities": "As the Lead Data Scientist for this project, I’m responsible for: End-to-End Architecture Design, Model Selection and Fine-tuning, RAG (Retrieval-Augmented Generation) Architecture Development, Prompt Engineering, Integration and Optimization.",
+        "methodology_and_solution": {
+          "layers": [
+            "Multi-Source Ingestion Layer: Ingests structured data from SABA's pipelines and unstructured data from external sources.",
+            "Processing & Embedding Layer: Converts all data into vector embeddings and stores them in a Vector Database (Chroma).",
+            "Intelligent Interpretation Layer (RAG + LLM Core): Retrieves relevant information upon significant events and uses a fine-tuned LLM to generate analytical summaries.",
+            "Output & Interaction Layer: Delivers context-rich automated alerts and provides an interactive Q&A interface for clients."
+          ]
+        },
+        "progress": "Testing on Product"
+      },
+      {
+        "project_name": "Real-time Sports Betting Fraud Detection and Prediction System",
+        "company": "SABA Sports",
+        "status": "Implemented",
+        "project_goal": "To build a large-scale Machine Learning and Deep Learning system capable of analyzing user behavior and real-time match statistics to predict and flag suspicious activities.",
+        "role_and_responsibilities": "Data Architect (Phase 1): Independently responsible for designing and re-implementing the entire on-premise data architecture. Technical Lead (Phase 2): Led a team of 4 members, with primary responsibility for researching, designing algorithms, and deploying ML/DL models.",
+        "methodology_and_solution": {
+          "phase_1": "Designing and Building a High-Performance Data Platform (On-Premise): Implemented a Datalake using Apache Spark, a Data Warehouse on PostgreSQL with Star Schema, and automated ETL/ELT processes with Apache Airflow.",
+          "phase_2": "Developing and Deploying the Fraud Prediction Model: Proposed a hybrid model combining a Tensor-based model and XGBoost. Led the transition of the Data Warehouse architecture to a Snowflake Schema to support new predictive dimensions."
+        },
+        "achievements": [
+          "High Accuracy: The model achieved up to 78% accuracy in identifying suspicious events.",
+          "Real-time Performance: Latency ranging from only 0.55s to 0.98s per request.",
+          "Superior Scalability: Handled data from 20 matches simultaneously and served millions of users.",
+          "Effective Fraud Detection: Identified over 65% of malicious attack behaviors in validation datasets."
+        ],
+        "technologies_used": "Python, SQL, Apache Spark, Apache Airflow, Hive, PostgreSQL, XGBoost, PyTorch, LSTM, Tensor-based Models, Datalake, Data Warehouse (Star & Snowflake Schema), ETL/ELT."
+      },
+      {
+        "project_name": "Formation Tactics Evaluation and Recommendation System",
+        "company": "SABA Sport",
+        "status": "Implemented",
+        "project_goal": "To develop an in-depth analysis system capable of quantifying and evaluating the effectiveness of different team formation tactics to provide valuable tactical suggestions.",
+        "role_and_responsibilities": "Data Scientist & ML Engineer (Independent): Responsible for ideation, research, data model design, model building, training, testing, and optimization.",
+        "methodology_and_solution": "Designed a high-performance ETL for OPTA data. The core is a hybrid model combining XGBoost for player action evaluation and Matrix Factorization for formation and interaction evaluation.",
+        "achievements": [
+          "Accurate Tactical Recommendations: Achieved an accuracy of over 75%.",
+          "Instant Analysis: Latency of only 0.55s - 0.98s.",
+          "Counter-Tactic Detection: Capable of identifying 'counter' or 'mismatched' formation pairings."
+        ],
+        "technologies_used": "Python, PyTorch, XGBoost, Recommendation Systems (Matrix Factorization), Poisson Distribution."
+      },
+      {
+        "project_name": "Real-time Optimized Customer Information Storage System",
+        "company": "DXC Technology",
+        "status": "Implemented",
+        "project_goal": "To build a robust and scalable data platform dedicated to processing and updating sensitive customer information in near real-time.",
+        "role_and_responsibilities": "Data Architect & Senior Data Engineer: Lead designer and implementer, responsible for End-to-End Architecture Design, Building Data Pipelines, Storage Architecture, Data Modeling, and Performance Optimization.",
+        "methodology_and_solution": "Designed real-time ETL/ELT ingestion pipelines and a hybrid Data Warehouse / Lakehouse architecture with a 'scalability first' philosophy.",
+        "achievements": [
+          "Successfully implemented an effective Data Warehouse / Lakehouse solution.",
+          "Achieved extremely high processing throughput, ensuring data could be updated in near real-time."
+        ],
+        "technologies_used": "ETL/ELT, Real-time Data Pipelines, Data Warehousing, Lakehouse Architecture, Data Modeling, High-Volume Data Processing."
+      },
+      {
+        "project_name": "Modernization and Migration of ETL System from On-Premise (Informatica) to Azure Data Factory (ADF)",
+        "company": "DXC Technology",
+        "status": "Implemented",
+        "project_goal": "To modernize the client's entire data processing infrastructure by migrating ETL processes to the Azure Data Factory (ADF) cloud platform.",
+        "role_and_responsibilities": "Senior Data Engineer & Data Migration Specialist: Lead technical person responsible for Analysis and Reverse-Engineering, Redesign on the Cloud, System Documentation, and Testing.",
+        "methodology_and_solution": "Migration was carried out in 3 phases: Discovery & Analysis, Design & Re-implementation on Azure (re-architecting approach), and Testing & Handover.",
+        "achievements": [
+          "Completed 100% migration of the client's ETL processes on schedule.",
+          "Successfully built and delivered a comprehensive technical documentation set.",
+          "Successfully modernized the client's data infrastructure, increasing scalability and reducing costs."
+        ],
+        "technologies_used": "Microsoft Azure, Azure Data Factory (ADF), Informatica PowerCenter, ETL/ELT, Data Migration, Cloud Modernization, Reverse-Engineering, Data Warehousing."
+      },
+      {
+        "project_name": "Market Analysis and Forecasting to Build Product Strategy on E-commerce Platforms",
+        "company": "Kimberly-Clark",
+        "status": "Implemented",
+        "project_goal": "To build a predictive analytics system to provide a competitive edge on e-commerce platforms by forecasting products with breakthrough potential.",
+        "role_and_responsibilities": "Business Analyst & Data Scientist: Responsible for Forecasting Model Development, Competitive Analysis, Strategic Report Creation, Data-Driven Consulting, and Data Mining.",
+        "methodology_and_solution": "Aggregated data from various sources, built a product potential forecasting model using Machine Learning, and established an automated reporting process using BI tools.",
+        "achievements": [
+          "Provided predictive insights into market trends and product potential.",
+          "Delivered useful and actionable competitive analysis reports.",
+          "Supported data-driven decisions for product promotion activities."
+        ],
+        "technologies_used": "BI Reporting Tools, E-commerce Analytics, XGBoost, Poisson Distribution, Linear Regression, Logistic Regression."
+      }
+    ]
+  }
+  
